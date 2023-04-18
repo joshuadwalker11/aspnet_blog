@@ -1,0 +1,36 @@
+﻿@page "/blog"
+@using blazor_blog.Models
+
+<h3>Blog</h3>
+
+
+@foreach (var entry in _blogEntries)
+{
+    <div>
+        <h3>@entry.Title</h3>
+        <h5>@entry.PostedTime</h5>
+        <p>@((MarkupString)entry.Content)</p>
+    </div>
+}
+
+
+<input placeholder="Title" @bind="title" />
+<input placeholder="Content" @bind="content" />
+<button @onclick="AddBlogEntry">Add</button>
+
+@code {
+
+    private List<BlogEntry> _blogEntries = new();
+    private string title = string.Empty, content = string.Empty;
+
+    private void AddBlogEntry()
+    {
+        if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(content))
+        {
+            _blogEntries.Add(new BlogEntry { Title = title, Content = content });
+            title = "";
+            content = string.Empty; // this is esssentially the same thing as = "";
+        }
+    }
+
+}
