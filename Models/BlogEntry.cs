@@ -9,9 +9,4 @@ public class BlogEntry
 
     public DateTime PostedTime { get; set; } = DateTime.Now;
 
-
-
-
-
-
 }

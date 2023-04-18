@@ -1,0 +1,31 @@
+﻿@using blazor_blog.Models
+
+<div class="blog-entry">
+    <h3>@Entry.Title</h3>
+    <h5>@Entry.PostedTime</h5>
+    <p>@((MarkupString)Entry.Content)</p>
+    <button @onclick="DeleteAsync">Delete Blog Entry</button>
+    <button @onclick="EditAsync">Edit Blog Entry</button>
+</div>
+
+@code {
+    [Parameter]
+    public BlogEntry Entry { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<BlogEntry> OnDelete { get; set; }
+
+    [Parameter]
+    public EventCallback<BlogEntry> OnEdit { get; set; }
+
+    @* when button is clicked, this method is run *@
+    public async Task DeleteAsync()
+    {
+        await OnDelete.InvokeAsync(Entry);
+    }
+
+    public async Task EditAsync()
+    {
+        await OnEdit.InvokeAsync(Entry);
+    }
+}
